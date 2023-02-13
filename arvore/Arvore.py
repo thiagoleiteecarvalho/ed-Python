@@ -1,3 +1,4 @@
+from typing import Optional
 
 class No:
     def __init__(self, dado: int, filho_esquerdo=None, filho_direito=None):
@@ -14,6 +15,7 @@ def insert(no: No, dado: int):
             return
 
         insert(no.filho_esquerdo, dado)
+
     else:
         if no.filho_direito is None:
             no.filho_direito = No(dado)
@@ -21,8 +23,20 @@ def insert(no: No, dado: int):
 
         insert(no.filho_direito, dado)
 
+
+def search(no: No, dado: int) -> Optional[No]:
+    if no is None:
+        return None
+
+    if no.dado == dado:
+        return no
+
+    if dado <= no.dado:
+        return search(no.filho_esquerdo, dado)
+
+    return search(no.filho_direito, dado)
+
 def delete(no: No, dado: int) -> Optional[No]:
-    
     if no is None or no.dado == dado:
         return None
 
@@ -32,19 +46,6 @@ def delete(no: No, dado: int) -> Optional[No]:
 
     no.filho_direito = delete(no.filho_direito, dado)
     return no
-
-def search(no: No, dado: int) -> Optional[No]:
-    
-    if no is None:
-        return print('Valor não pertence à ávore')
-
-    if no.dado == dado:
-        return print('Valor pertence à ávore')
-
-    if dado <= no.dado:
-        return search(no.filho_esquerdo, dado)
-
-    return search(no.filho_direito, dado)
 
 def imprimir_pre_ordem(no: No):
 
