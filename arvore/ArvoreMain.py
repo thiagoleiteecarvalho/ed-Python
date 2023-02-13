@@ -29,7 +29,11 @@ if __name__ == '__main__':
         elif opcao == 4:
             print("Digite o valor(numérico e inteiro) a ser pesquisado: ", end='')
             dado = int(input())
-            arvore.search(raiz, dado)
+            no = arvore.search(raiz, dado)
+            if no == None:
+                print('Valor não encontrado')
+            else:
+                print('Valor encontrado')
         elif opcao == 5:
             print("Exibindo Pré-ordem")
             arvore.imprimir_pre_ordem(raiz)
