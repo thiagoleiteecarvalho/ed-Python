@@ -25,12 +25,16 @@ if __name__ == '__main__':
         elif opcao == 3:
             print("Digite o valor(numérico e inteiro) a ser excluído: ", end='')
             dado = int(input())
-            arvore.delete(raiz, dado)
+            no = arvore.delete(raiz, dado)
+            if no is None:
+                print('Valor não encontrado')
+            else:
+                print('Valor excluído')
         elif opcao == 4:
             print("Digite o valor(numérico e inteiro) a ser pesquisado: ", end='')
             dado = int(input())
             no = arvore.search(raiz, dado)
-            if no == None:
+            if no is None:
                 print('Valor não encontrado')
             else:
                 print('Valor encontrado')
