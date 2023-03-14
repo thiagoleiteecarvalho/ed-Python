@@ -7,21 +7,22 @@ class No:
         self.filho_direito = filho_direito
 
 
-def insert(no: No, dado: int):
-    
+def inserir(no: No, dado: int) -> No:
+    if no is None:
+        return No(dado)
+
     if dado <= no.dado:
         if no.filho_esquerdo is None:
             no.filho_esquerdo = No(dado)
-            return
+            return no
 
-        insert(no.filho_esquerdo, dado)
+        return inserir(no.filho_esquerdo, dado)
 
-    else:
-        if no.filho_direito is None:
-            no.filho_direito = No(dado)
-            return
+    if no.filho_direito is None:
+        no.filho_direito = No(dado)
+        return no
 
-        insert(no.filho_direito, dado)
+    return inserir(no.filho_direito, dado)
 
 
 def search(no: No, dado: int) -> Optional[No]:
@@ -37,14 +38,21 @@ def search(no: No, dado: int) -> Optional[No]:
     return search(no.filho_direito, dado)
 
 def delete(no: No, dado: int) -> Optional[No]:
-    if no is None or no.dado == dado:
+    if no is None:
         return None
 
+    if no.dado == dado:
+        if no.filho_direito is not None:
+            no.filho_direito.filho_esquerdo = no.filho_esquerdo
+            return no.filho_direito
+
+        return no.filho_esquerdo
+
     if dado <= no.dado:
-        no.filho_esquerdo = delete(no.filho_esquerdo, dado)
+        no.filho_esquerdo = remover_node(no.filho_esquerdo, dado)
         return no
 
-    no.filho_direito = delete(no.filho_direito, dado)
+    no.filho_direito = remover_node(no.filho_direito, dado)
     return no
 
 def imprimir_pre_ordem(no: No):
